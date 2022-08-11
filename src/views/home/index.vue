@@ -1,0 +1,119 @@
+<script lang="ts" setup>
+import { register } from '@/api/home'
+const form = reactive({
+  name: '',
+  password: '',
+  isRead: false,
+})
+
+const submit = () => {
+  // this.$message.success('---')
+  if (form.password === '' || form.name === '') return
+  register({
+    user_name: form.name,
+    password: form.password,
+  })
+    .then(() => {
+      // this.$message.success(res.message)
+    })
+    .catch(() => {
+      // this.$message.warning(e.message)
+    })
+    .finally(() => {
+      // this.$refs.formRef.resetFields()
+    })
+}
+</script>
+
+<template>
+  <div class="home">
+    <div class="home-view">
+      <span class="home-view-context">MR NOTICE</span>
+    </div>
+    <div class="home-content">
+      <a-card hoverable :style="{ width: '400px' }">
+        <template #cover>
+          <div
+            :style="{
+              height: '204px',
+              overflow: 'hidden',
+            }"
+          >
+            <img
+              :style="{ width: '100%', transform: 'translateY(-20px)' }"
+              alt="dessert"
+              src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a20012a2d4d5b9db43dfc6a01fe508c0.png~tplv-uwbnlip3yd-webp.webp"
+            />
+          </div>
+        </template>
+        <div class="user-info-form">
+          <a-form
+            ref="formRef"
+            :model="form"
+            :style="{ width: '340px' }"
+            @click="submit"
+          >
+            <a-space direction="vertical" size="medium">
+              <a-form-item
+                field="name"
+                label="用户名"
+                validate-trigger="input"
+                required
+              >
+                <a-input v-model="form.name" placeholder="请输入用户名..." />
+              </a-form-item>
+              <a-form-item
+                field="password"
+                label="密码"
+                validate-trigger="input"
+                required
+              >
+                <a-input v-model="form.password" placeholder="请输入密码..." />
+              </a-form-item>
+              <a-form-item>
+                <a-button html-type="submit">提交</a-button>
+              </a-form-item>
+            </a-space>
+          </a-form>
+        </div>
+      </a-card>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  justify-content: space-around;
+  height: 100vh;
+
+  .home-view {
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+    width: 30%;
+    min-width: 300px;
+    height: 100%;
+    background-color: bisque;
+
+    .home-view-context {
+      display: inline-block;
+      width: 100%;
+      font-size: 36px;
+      text-align: center;
+      color: brown;
+      font-style: italic;
+    }
+  }
+
+  .home-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    width: 70%;
+    min-width: 400px;
+    height: 100%;
+  }
+}
+</style>
