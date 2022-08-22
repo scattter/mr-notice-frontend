@@ -2,9 +2,8 @@
 import { Message } from '@arco-design/web-vue'
 
 import { register } from '@/api/home'
-import { useMainStore } from '@/store/main.ts'
-const mainStore = useMainStore()
-const { updateLoadingState } = mainStore
+import appStore from '@/store'
+const { updateLoadingState } = appStore.useMainStore
 
 const form = reactive({
   name: '',

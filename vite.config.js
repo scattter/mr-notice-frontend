@@ -78,9 +78,18 @@ export default defineConfig({
     outDir: './dist',
     rollupOptions: {
       output: {
-        manualChunks: {
-          arco: ['@arco-design/web-vue'],
-        },
+        // manualChunks: {
+        //   arco: ['@arco-design/web-vue'],
+        // },
+        manualChunks(id) {
+          // 将pinia的全局库实例打包进vendor，避免和页面一起打包造成资源重复引入
+          if (id.includes(resolve(__dirname, '/src/store/index.ts'))) {
+            return 'store_vendor';
+          }
+          if (id.includes('@arco-design/web-vue')) {
+            return 'arco';
+          }
+        }
       },
     },
     chunkSizeWarningLimit: 1024,
