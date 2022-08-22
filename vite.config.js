@@ -3,6 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
 import AutoImport from 'unplugin-auto-import/vite'
+import { visualizer } from "rollup-plugin-visualizer"
+import Components from 'unplugin-vue-components/vite'
+import {
+  ArcoResolver
+} from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +32,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    // visualizer({
+    //   open: true,
+    //   gzipSize: true,
+    //   brotliSize: true,
+    // }),
     createStyleImportPlugin({
       libs: [
         {
@@ -57,6 +67,34 @@ export default defineConfig({
         filepath: './.eslintrc-auto-import.json',
         globalsPropValue: true,
       },
+    }),
+    Components({
+      dirs: ['src'], // Avoid parsing src/components.  避免解析到src/components
+      deep: false,
+      resolvers: [ArcoResolver()],
     })
-  ]
+  ],
+  build: {
+    outDir: './dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          arco: ['@arco-design/web-vue'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1024,
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${resolve(
+            'src/assets/style/breakpoint.less'
+          )}";`,
+        },
+        javascriptEnabled: true,
+      },
+    },
+  },
 })

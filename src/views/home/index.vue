@@ -1,5 +1,11 @@
 <script lang="ts" setup>
+import { Message } from '@arco-design/web-vue'
+
 import { register } from '@/api/home'
+import { useMainStore } from '@/store/main.ts'
+const mainStore = useMainStore()
+const { updateLoadingState } = mainStore
+
 const form = reactive({
   name: '',
   password: '',
@@ -7,28 +13,31 @@ const form = reactive({
 })
 
 const submit = () => {
-  // this.$message.success('---')
   if (form.password === '' || form.name === '') return
+  updateLoadingState(true)
   register({
     user_name: form.name,
     password: form.password,
   })
-    .then(() => {
-      // this.$message.success(res.message)
+    .then(res => {
+      Message.success(res.message)
     })
-    .catch(() => {
-      // this.$message.warning(e.message)
+    .catch(err => {
+      Message.warning(err.message)
     })
     .finally(() => {
-      // this.$refs.formRef.resetFields()
+      updateLoadingState(false)
     })
+}
+const demo = () => {
+  updateLoadingState(true)
 }
 </script>
 
 <template>
   <div class="home">
     <div class="home-view">
-      <span class="home-view-context">MR NOTICE</span>
+      <span class="home-view-context" @click="demo">MR NOTICE</span>
     </div>
     <div class="home-content">
       <a-card hoverable :style="{ width: '400px' }">
@@ -60,7 +69,11 @@ const submit = () => {
                 validate-trigger="input"
                 required
               >
-                <a-input v-model="form.name" placeholder="请输入用户名..." />
+                <a-input
+                  v-model="form.name"
+                  placeholder="请输入用户名..."
+                  allow-clear
+                />
               </a-form-item>
               <a-form-item
                 field="password"
@@ -68,7 +81,11 @@ const submit = () => {
                 validate-trigger="input"
                 required
               >
-                <a-input v-model="form.password" placeholder="请输入密码..." />
+                <a-input-password
+                  v-model="form.password"
+                  placeholder="请输入密码..."
+                  allow-clear
+                />
               </a-form-item>
               <a-form-item>
                 <a-button html-type="submit">提交</a-button>
@@ -85,6 +102,7 @@ const submit = () => {
 .home {
   display: flex;
   justify-content: space-around;
+  width: 100vw;
   height: 100vh;
 
   .home-view {

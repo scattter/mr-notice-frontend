@@ -1,4 +1,5 @@
 import '@arco-design/web-vue/dist/arco.css'
+import './index.css'
 
 import ArcoVue from '@arco-design/web-vue'
 import { createPinia } from 'pinia'
