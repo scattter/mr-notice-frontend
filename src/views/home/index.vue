@@ -3,6 +3,7 @@ import { Message } from '@arco-design/web-vue'
 
 import { register } from '@/api/home'
 import appStore from '@/store'
+import { Encrypt } from '@/utils/crypto'
 const { updateLoadingState } = appStore.useMainStore
 
 const form = reactive({
@@ -16,7 +17,7 @@ const submit = () => {
   updateLoadingState(true)
   register({
     user_name: form.name,
-    password: form.password,
+    password: Encrypt(form.password.trim()),
   })
     .then(res => {
       Message.success(res.message)
