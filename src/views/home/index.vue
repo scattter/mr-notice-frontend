@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Message } from '@arco-design/web-vue'
 
-import { register } from '@/api/home'
+import { login, register } from '@/api/home'
 import appStore from '@/store'
 import { Encrypt } from '@/utils/crypto'
 const { updateLoadingState } = appStore.useMainStore
@@ -12,7 +12,7 @@ const form = reactive({
   isRead: false,
 })
 
-const submit = () => {
+const userRegister = () => {
   if (form.password === '' || form.name === '') return
   updateLoadingState(true)
   register({
@@ -29,15 +29,29 @@ const submit = () => {
       updateLoadingState(false)
     })
 }
-const demo = () => {
+const userLogin = () => {
+  if (form.password === '' || form.name === '') return
   updateLoadingState(true)
+  login({
+    user_name: form.name,
+    password: Encrypt(form.password.trim()),
+  })
+    .then(res => {
+      Message.success(res.message)
+    })
+    .catch(err => {
+      Message.warning(err.message)
+    })
+    .finally(() => {
+      updateLoadingState(false)
+    })
 }
 </script>
 
 <template>
   <div class="home">
     <div class="home-view">
-      <span class="home-view-context" @click="demo">MR NOTICE</span>
+      <span class="home-view-context">MR NOTICE</span>
     </div>
     <div class="home-content">
       <a-card hoverable :style="{ width: '400px' }">
@@ -56,12 +70,7 @@ const demo = () => {
           </div>
         </template>
         <div class="user-info-form">
-          <a-form
-            ref="formRef"
-            :model="form"
-            :style="{ width: '340px' }"
-            @click="submit"
-          >
+          <a-form ref="formRef" :model="form" :style="{ width: '340px' }">
             <a-space direction="vertical" size="medium">
               <a-form-item
                 field="name"
@@ -88,7 +97,10 @@ const demo = () => {
                 />
               </a-form-item>
               <a-form-item>
-                <a-button html-type="submit">提交</a-button>
+                <a-space>
+                  <a-button @click="userRegister">注册</a-button>
+                  <a-button @click="userLogin">登录</a-button>
+                </a-space>
               </a-form-item>
             </a-space>
           </a-form>
