@@ -3,7 +3,7 @@ export interface IAppStore {
   useMainStore: ReturnType<typeof useMainStore>
 }
 
-const appStore: IAppStore = {} as IAppStore
+export const appStore: IAppStore = {} as IAppStore
 
 /**
  * 注册app状态库

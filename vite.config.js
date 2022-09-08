@@ -8,13 +8,22 @@ import Components from 'unplugin-vue-components/vite'
 import {
   ArcoResolver
 } from 'unplugin-vue-components/resolvers'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    alias: {
-      '@': resolve(__dirname, './src')
-    },
+    alias: [
+      {
+        find: '@',
+        replacement: resolve(__dirname, './src'),
+      },
+      // 这里是为了解决menu render的编译问题
+      {
+        find: 'vue',
+        replacement: 'vue/dist/vue.esm-bundler.js', // compile template
+      },
+    ],
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   server: {
@@ -37,6 +46,7 @@ export default defineConfig({
     //   gzipSize: true,
     //   brotliSize: true,
     // }),
+    vueJsx(),
     createStyleImportPlugin({
       libs: [
         {
