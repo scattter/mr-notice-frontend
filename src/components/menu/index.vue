@@ -1,8 +1,9 @@
 <script lang="tsx">
 import { compile, defineComponent, h, ref } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
+
 import { appRoutes } from '@/route/routes'
-import { openWindow, regexUrl } from "@/utils/sideBar";
+import { openWindow, regexUrl } from '@/utils/sideBar'
 
 export default defineComponent({
   setup() {
@@ -10,7 +11,7 @@ export default defineComponent({
     // 当前选中路由
     const openKeys = ref<string[]>([])
     const selectedKeys = ref<string[]>([])
-    
+
     // 获取路由
     const routes = computed(() => {
       return [...appRoutes]
@@ -36,18 +37,24 @@ export default defineComponent({
     const renderMenu = () => {
       function render(routes: RouteRecordRaw[], nodes = []) {
         routes.forEach(route => {
-          const icon = route?.meta?.icon ? () => h(compile(`<${route?.meta?.icon} />`)) : null
-          const node = route?.children && Array.isArray(route.children) && route.children.length !== 0 ? (
+          const icon = route?.meta?.icon
+            ? () => h(compile(`<${route?.meta?.icon} />`))
+            : null
+          const node =
+            route?.children &&
+            Array.isArray(route.children) &&
+            route.children.length !== 0 ? (
               <a-sub-menu
                 key={route.name}
                 v-slots={{
                   icon,
-                  title: () => h(compile(route?.meta?.locale as string || ''))
+                  title: () =>
+                    h(compile((route?.meta?.locale as string) || '')),
                 }}
               >
-                { render(route.children) }
+                {render(route.children)}
               </a-sub-menu>
-          ) : (
+            ) : (
               <a-menu-item
                 key={route?.name}
                 v-slots={{ icon }}
@@ -55,7 +62,7 @@ export default defineComponent({
               >
                 {route?.meta?.locale || ''}
               </a-menu-item>
-          )
+            )
           nodes.push(node as never)
         })
         return nodes
@@ -64,14 +71,11 @@ export default defineComponent({
     }
 
     return () => (
-      <a-menu
-          open-keys={['dashboard']}
-        selected-keys={selectedKeys.value}
-      >
-        { renderMenu() }
+      <a-menu open-keys={['dashboard']} selected-keys={selectedKeys.value}>
+        {renderMenu()}
       </a-menu>
     )
-  }
+  },
 })
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // import Layout from '@/layout/index.vue'
-import {storeToRefs} from "pinia";
+import { storeToRefs } from 'pinia'
 
 import { useMainStore } from '@/store/main.ts'
 import Home from '@/views/login/index.vue'
@@ -11,7 +11,7 @@ const { globalLoading } = storeToRefs(mainStore)
 
 <template>
   <a-spin :loading="globalLoading" dot>
-<!--    <Home />-->
+    <!--    <Home />-->
     <router-view />
   </a-spin>
 </template>

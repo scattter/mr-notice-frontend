@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "license": "ISC",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite  --config ./config/vite/vite.dev.config.ts",
+    "build": "vite build --config ./config/vite/vite.prod.config.ts",
     "preview": "vite preview",
     "lint": "eslint src --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "lint:style": "stylelint \"./**/*.{css,less,vue,html}\" --fix",
@@ -31,6 +31,7 @@
     "@vitejs/plugin-vue-jsx": "^2.0.1",
     "autoprefixer": "^10.4.8",
     "consola": "^2.15.3",
+    "cross-env": "^7.0.3",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.6.0",
@@ -57,6 +58,7 @@
     "unplugin-auto-import": "^0.11.1",
     "unplugin-vue-components": "^0.22.4",
     "vite": "^3.0.5",
+    "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-style-import": "^2.0.0",
     "vue-eslint-parser": "^9.0.3"
   }

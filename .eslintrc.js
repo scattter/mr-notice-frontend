@@ -23,6 +23,10 @@ module.exports = {
     ecmaVersion: 'latest', // 指定要使用的 ECMAScript 语法版本
     parser: '@typescript-eslint/parser', // 可选的。自定义解析器。
     sourceType: 'module', // 默认是 “script”。当代码在 ECMAScript 模块中时其值需设为 “module”。
+    ecmaFeatures: { // eslint 解析jsx, tsx
+      "jsx": true,
+      "tsx": true
+    }
   },
   plugins: [
     'vue',
