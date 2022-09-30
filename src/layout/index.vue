@@ -55,6 +55,7 @@ import PageLayout from './page-layout.vue'
 }
 
 .layout-demo :deep(.arco-layout-content) {
+  padding: 20px 20px 0;
   margin: 10px 15px;
   background-color: white;
 }

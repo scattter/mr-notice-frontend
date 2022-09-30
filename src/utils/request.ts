@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import appStore from '@/store'
+
 const Config = {
   baseURL: '/api/v1',
 }
@@ -12,7 +14,8 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 产品集视图中必须是登录后访问，因此肯定存在token
-    // config.headers.common['Authorization'] = ''
+    const { globalToken } = appStore.useMainStore
+    config.headers.common['Authorization'] = globalToken
     return config
   },
   error => {
