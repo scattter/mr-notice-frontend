@@ -29,10 +29,12 @@ service.interceptors.response.use(
   },
   error => {
     return Promise.reject(
-      error.response.data || {
-        code: 10005,
-        message: '服务器内部错误',
-      }
+      error.response.data !== ''
+        ? error.response.data
+        : {
+            code: 10005,
+            message: '服务器内部错误',
+          }
     )
   }
 )

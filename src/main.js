@@ -1,3 +1,4 @@
+import '@arco-design/web-vue/dist/arco.css'
 import './index.css'
 
 // 额外引入图标库
