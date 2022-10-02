@@ -14,8 +14,8 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 产品集视图中必须是登录后访问，因此肯定存在token
-    const { globalToken } = appStore.useMainStore
-    config.headers.common['Authorization'] = globalToken
+    const { userInfo } = appStore.useMainStore
+    config.headers.common['Authorization'] = userInfo.token
     return config
   },
   error => {

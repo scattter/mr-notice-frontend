@@ -7,7 +7,7 @@ import { OriginResponse } from '@/types/response'
 import { Encrypt } from '@/utils/crypto'
 
 const router = useRouter()
-const { updateLoadingState, updateToken } = appStore.useMainStore
+const { updateLoadingState, updateUserInfo } = appStore.useMainStore
 
 const form = reactive({
   name: '',
@@ -53,7 +53,7 @@ const userLogin = () => {
 }
 
 const successLogin = (res: OriginResponse) => {
-  updateToken(res.result.token)
+  updateUserInfo(res.result)
   router.push({
     name: 'dashboard',
   })
