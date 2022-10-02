@@ -27,7 +27,7 @@ const userRegister = () => {
       successLogin(res)
     })
     .catch(err => {
-      Message.warning(err.message)
+      console.log(err)
     })
     .finally(() => {
       updateLoadingState(false)
@@ -45,7 +45,7 @@ const userLogin = () => {
       successLogin(res)
     })
     .catch(err => {
-      Message.warning(err.message)
+      console.log(err)
     })
     .finally(() => {
       updateLoadingState(false)
