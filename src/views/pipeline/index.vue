@@ -115,7 +115,7 @@ const queryPipelineInfo = async () => {
     state.data = res.result
     Message.success(res.message)
   } catch (e) {
-    Message.error(e.message)
+    console.log(e)
   }
 }
 
@@ -125,7 +125,7 @@ const handleOk = async () => {
     Message.success('创建成功')
     await queryPipelineInfo()
   } catch (e) {
-    Message.error(e?.message || '创建失败')
+    console.log(e)
   }
   handleCancel()
   resetForm()
