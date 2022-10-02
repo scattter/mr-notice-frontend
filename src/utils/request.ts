@@ -33,15 +33,7 @@ service.interceptors.response.use(
   },
   error => {
     Message.error(error?.response?.data?.message || '服务器内部错误')
-    return Promise.reject(
-      error?.response?.data !== ''
-        ? error.response.data
-        : {
-            code: 10005,
-            message: '服务器内部错误',
-            result: '',
-          }
-    )
+    return Promise.reject(error?.response)
   }
 )
 
