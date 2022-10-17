@@ -33,20 +33,29 @@ export default mergeConfig(
           },
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
-          manualChunks(id: string) {
-            // 将pinia的全局库实例打包进vendor，避免和页面一起打包造成资源重复引入
-            if (id.includes(resolve(__dirname, '/src/store/index.ts'))) {
-              return 'store_vendor'
-            }
-            if (id.includes('@arco-design/web-vue')) {
-              const names = id.split('/')
-              // const name =
-              //   names[names.length - 2] + '-' + names[names.length - 1]
-              if (names[names.length - 3] === 'icon') return `arco/icons`
-              // return `arco/components/${name}`
-              return '@arco-design/web-vue'
-            }
+          manualChunks: {
+            arco: ['@arco-design/web-vue'],
+            vue: ['vue', 'vue-router', 'pinia'],
+            store_vendor: [`${resolve(__dirname, '/src/store/index.ts')}`],
           },
+          // manualChunks(id: string) {
+          //   // 将pinia的全局库实例打包进vendor，避免和页面一起打包造成资源重复引入
+          //   if (id.includes(resolve(__dirname, '/src/store/index.ts'))) {
+          //     return 'store_vendor'
+          //   }
+          //   if (id.includes('@arco-design/web-vue')) {
+          //     const names = id.split('/')
+          //     if (names[names.length - 3] === 'icon') return `arco-icons`
+          //     return '@arco-design-web-vue'
+          //   }
+          //   if (
+          //     ['vue', 'vue-router', 'pinia', '@vueuse/core'].find(vendor =>
+          //       id.includes(vendor)
+          //     )
+          //   ) {
+          //     return 'vue'
+          //   }
+          // },
         },
       },
       chunkSizeWarningLimit: 1024,
