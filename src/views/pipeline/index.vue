@@ -52,11 +52,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue'
-
 import { createPipeline, queryAllPipelineInfo } from '@/api/pipeline'
 import appStore from '@/store'
-
 const { userInfo } = appStore.useMainStore
 
 const columns = [

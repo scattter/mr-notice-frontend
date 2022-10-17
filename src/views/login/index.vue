@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue'
-
 import { login, register } from '@/api/home'
 import appStore from '@/store'
 import { OriginResponse } from '@/types/response'

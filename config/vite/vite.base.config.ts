@@ -6,6 +6,7 @@ import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { defineConfig } from 'vite'
 
 import { arcoResolver } from '../plugins/arcoResolver'
+import configStyleImportPlugin from '../plugins/styleImport'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -41,6 +42,9 @@ export default defineConfig({
         // presets
         'vue',
         'vue-router',
+        {
+          '@arco-design/web-vue': ['Message'],
+        },
       ],
       eslintrc: {
         enabled: true,
@@ -49,6 +53,7 @@ export default defineConfig({
       },
     }),
     arcoResolver(),
+    configStyleImportPlugin(), // 按需导入样式
   ],
   css: {
     preprocessorOptions: {

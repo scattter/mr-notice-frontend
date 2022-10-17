@@ -40,9 +40,11 @@ export default mergeConfig(
             }
             if (id.includes('@arco-design/web-vue')) {
               const names = id.split('/')
-              const name =
-                names[names.length - 1] + '-' + names[names.length - 1]
-              return `arco/${name}`
+              // const name =
+              //   names[names.length - 2] + '-' + names[names.length - 1]
+              if (names[names.length - 3] === 'icon') return `arco/icons`
+              // return `arco/components/${name}`
+              return '@arco-design/web-vue'
             }
           },
         },
