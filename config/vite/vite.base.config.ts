@@ -2,7 +2,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
-import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+// import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { defineConfig } from 'vite'
 
 import { arcoResolver } from '../plugins/arcoResolver'
@@ -29,7 +29,7 @@ export default defineConfig({
     vueJsx(),
     AutoImport({
       // 这里的按需加载和官网上的一样, 和arco-pro默认配置的有出入(commit: b628eea8和arco-pro一致)
-      resolvers: [ArcoResolver()],
+      // resolvers: [ArcoResolver()],
       // targets to transform
       include: [
         /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -47,6 +47,7 @@ export default defineConfig({
         },
       ],
       eslintrc: {
+        // eslintrc-auto-import.json文件
         enabled: true,
         filepath: './.eslintrc-auto-import.json',
         globalsPropValue: true,
