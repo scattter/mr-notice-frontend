@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import appStore from '@/store'
+
 const Config = {
   baseURL: '/api/v1',
 }
@@ -12,7 +14,8 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 产品集视图中必须是登录后访问，因此肯定存在token
-    // config.headers.common['Authorization'] = ''
+    const { userInfo } = appStore.useMainStore
+    config.headers.common['Authorization'] = userInfo.token
     return config
   },
   error => {
@@ -28,12 +31,8 @@ service.interceptors.response.use(
     }
   },
   error => {
-    return Promise.reject(
-      error.response.data || {
-        code: 10005,
-        message: '服务器内部错误',
-      }
-    )
+    Message.error(error?.response?.data?.message || '服务器内部错误')
+    return Promise.reject(error?.response)
   }
 )
 

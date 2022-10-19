@@ -2,10 +2,11 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
-import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+// import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { defineConfig } from 'vite'
 
 import { arcoResolver } from '../plugins/arcoResolver'
+import configStyleImportPlugin from '../plugins/styleImport'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,7 +29,7 @@ export default defineConfig({
     vueJsx(),
     AutoImport({
       // 这里的按需加载和官网上的一样, 和arco-pro默认配置的有出入(commit: b628eea8和arco-pro一致)
-      resolvers: [ArcoResolver()],
+      // resolvers: [ArcoResolver()],
       // targets to transform
       include: [
         /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -41,6 +42,9 @@ export default defineConfig({
         // presets
         'vue',
         'vue-router',
+        {
+          '@arco-design/web-vue': ['Message'],
+        },
       ],
       eslintrc: {
         enabled: true,
@@ -49,6 +53,7 @@ export default defineConfig({
       },
     }),
     arcoResolver(),
+    configStyleImportPlugin(), // 按需导入样式
   ],
   css: {
     preprocessorOptions: {

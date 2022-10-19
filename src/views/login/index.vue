@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue'
-
 import { login, register } from '@/api/home'
 import appStore from '@/store'
+import { OriginResponse } from '@/types/response'
 import { Encrypt } from '@/utils/crypto'
 
 const router = useRouter()
-const { updateLoadingState } = appStore.useMainStore
+const { updateLoadingState, updateUserInfo } = appStore.useMainStore
 
 const form = reactive({
   name: '',
@@ -23,10 +22,10 @@ const userRegister = () => {
   })
     .then(res => {
       Message.success(res.message)
-      successLogin()
+      successLogin(res)
     })
     .catch(err => {
-      Message.warning(err.message)
+      console.log(err)
     })
     .finally(() => {
       updateLoadingState(false)
@@ -41,17 +40,18 @@ const userLogin = () => {
   })
     .then(res => {
       Message.success(res.message)
-      successLogin()
+      successLogin(res)
     })
     .catch(err => {
-      Message.warning(err.message)
+      console.log(err)
     })
     .finally(() => {
       updateLoadingState(false)
     })
 }
 
-const successLogin = () => {
+const successLogin = (res: OriginResponse) => {
+  updateUserInfo(res.result)
   router.push({
     name: 'dashboard',
   })

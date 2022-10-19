@@ -28,7 +28,7 @@ export const appRoutes = [
       {
         path: 'pipeline',
         name: 'pipeline',
-        component: DASHBOARD,
+        component: () => import('@/views/pipeline/index.vue'),
         meta: {
           locale: '流水线',
           activeMenu: 'pipeline',
