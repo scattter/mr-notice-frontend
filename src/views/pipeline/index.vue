@@ -1,48 +1,24 @@
 <template>
   <div class="pipeline-page">
-    <a-button class="pipeline-create" type="primary" @click="create">
-      新建流水线
-    </a-button>
-    <a-table class="pipeline-table" :columns="columns" :data="state.data" />
-    <a-modal
-      v-model:visible="state.dialogVisible"
-      @ok="handleOk"
-      @cancel="handleCancel"
-    >
+    <a-button class="pipeline-create" type="primary" @click="create"> 新建流水线 </a-button>
+    <a-table class="pipeline-table" :columns="columns" :data="pipelines" />
+    <a-modal v-model:visible="state.dialogVisible" @ok="handleOk" @cancel="handleCancel">
       <template #title> 新建 </template>
       <div class="create-dialog-content">
         <a-form :model="form" :style="{ width: '480px' }">
-          <a-form-item
-            field="pipelineName"
-            label="流水线名称"
-            validate-trigger="input"
-            required
-          >
-            <a-input
-              v-model="form.pipelineName"
-              placeholder="请输入流水线名称"
-            />
+          <a-form-item field="pipelineName" label="流水线名称" validate-trigger="input" required>
+            <a-input v-model="form.pipelineName" placeholder="请输入流水线名称" />
             <template #extra>
               <div>流水线名称, 唯一标识</div>
             </template>
           </a-form-item>
-          <a-form-item
-            field="relateRepo"
-            label="关联仓库"
-            validate-trigger="input"
-            required
-          >
+          <a-form-item field="relateRepo" label="关联仓库" validate-trigger="input" required>
             <a-input v-model="form.relateRepo" placeholder="请输入关联仓库" />
             <template #extra>
               <div>监听MR的仓库</div>
             </template>
           </a-form-item>
-          <a-form-item
-            field="relateBranch"
-            label="关联分支"
-            validate-trigger="input"
-            required
-          >
+          <a-form-item field="relateBranch" label="关联分支" validate-trigger="input" required>
             <a-input v-model="form.relateBranch" placeholder="请输入关联分支" />
           </a-form-item>
         </a-form>
@@ -54,6 +30,7 @@
 <script lang="ts" setup>
 import { createPipeline, queryAllPipelineInfo } from '@/api/pipeline'
 import appStore from '@/store'
+import { PipelineInfo } from '@/types/pipeline'
 const { userInfo } = appStore.useMainStore
 
 const columns = [
@@ -93,9 +70,10 @@ const resetForm = () => {
   Object.assign(form, initForm)
 }
 
+const pipelines = ref<Array<PipelineInfo>>([])
 const state = reactive({
   dialogVisible: false,
-  data: [],
+  pipelines,
 })
 
 onMounted(async () => {
@@ -109,7 +87,7 @@ const create = () => {
 const queryPipelineInfo = async () => {
   try {
     const res = await queryAllPipelineInfo()
-    state.data = res.result
+    state.pipelines = res.result
     Message.success(res.message)
   } catch (e) {
     console.log(e)

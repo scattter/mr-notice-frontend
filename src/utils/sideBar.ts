@@ -1,9 +1,6 @@
 type TargetContext = '_self' | '_parent' | '_blank' | '_top'
 
-export const openWindow = (
-  url: string,
-  opts?: { target?: TargetContext; [key: string]: any }
-) => {
+export const openWindow = (url: string, opts?: { target?: TargetContext; [key: string]: any }) => {
   const { target = '_self', ...others } = opts || {}
   window.open(
     url,

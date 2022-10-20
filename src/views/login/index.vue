@@ -101,29 +101,11 @@ const handleWave = () => {
         <div class="user-info-form">
           <a-form ref="formRef" :model="form" :style="{ width: '340px' }">
             <a-space direction="vertical" size="medium">
-              <a-form-item
-                field="name"
-                label="用户名"
-                validate-trigger="input"
-                required
-              >
-                <a-input
-                  v-model="form.name"
-                  placeholder="请输入用户名..."
-                  allow-clear
-                />
+              <a-form-item field="name" label="用户名" validate-trigger="input" required>
+                <a-input v-model="form.name" placeholder="请输入用户名..." allow-clear />
               </a-form-item>
-              <a-form-item
-                field="password"
-                label="密码"
-                validate-trigger="input"
-                required
-              >
-                <a-input-password
-                  v-model="form.password"
-                  placeholder="请输入密码..."
-                  allow-clear
-                />
+              <a-form-item field="password" label="密码" validate-trigger="input" required>
+                <a-input-password v-model="form.password" placeholder="请输入密码..." allow-clear />
               </a-form-item>
               <a-form-item>
                 <a-space>
