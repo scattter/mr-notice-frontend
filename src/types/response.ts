@@ -1,5 +1,5 @@
-export interface OriginResponse {
+export interface OriginResponse<T = any> {
   code: number
   message: string
-  result: object
+  result: T
 }

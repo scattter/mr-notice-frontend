@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 import appStore from '@/store'
 
@@ -6,16 +6,21 @@ const Config = {
   baseURL: '/api/v1',
 }
 
-const service = axios.create({
+const service: AxiosInstance = axios.create({
   timeout: 100 * 10,
   ...Config,
 })
 
 service.interceptors.request.use(
-  config => {
+  (config: AxiosRequestConfig): AxiosRequestConfig => {
     // 产品集视图中必须是登录后访问，因此肯定存在token
     const { userInfo } = appStore.useMainStore
-    config.headers.common['Authorization'] = userInfo.token
+    if (!config.headers) config.headers = {}
+    Object.assign(config.headers, {
+      common: {
+        Authorization: userInfo.token,
+      },
+    })
     return config
   },
   error => {
@@ -25,9 +30,9 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    const res = response.data
-    if (res.code === 10000) {
-      return res
+    const { code } = response.data
+    if (code === 10000) {
+      return response
     }
   },
   error => {
@@ -38,13 +43,34 @@ service.interceptors.response.use(
 
 export default service
 
-export function get(url: string, params?: object, config?: object) {
-  return service.get(url, {
+export function get<T, D>(url: string, params?: D, config?: AxiosRequestConfig): Promise<T> {
+  const promise = service.get<T, AxiosResponse<T>, D>(url, {
     params,
     ...config,
   })
+  return convertAxiosResponse(promise)
 }
 
-export function post(url: string, params?: object, config?: object) {
-  return service.post(url, params, config)
+export function post<T, D>(url: string, params?: D, config?: AxiosRequestConfig): Promise<T> {
+  const promise = service.post<T, AxiosResponse<T>, D>(url, params, config)
+  return convertAxiosResponse(promise)
 }
+
+/**
+ * @param axiosPromise AxiosResponse<T>
+ */
+function convertAxiosResponse<T>(axiosPromise: Promise<AxiosResponse<T>>): Promise<T> {
+  return new Promise(function (resolve, reject) {
+    axiosPromise
+      .then(response => {
+        resolve(response.data)
+      })
+      .then(err => {
+        reject(err)
+      })
+  })
+}
+
+// 作者：冬季穿短裤
+// 链接：https://juejin.cn/post/7067511717122539527
+//   来源：稀土掘金
