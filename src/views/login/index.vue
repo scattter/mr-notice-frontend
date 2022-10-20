@@ -56,12 +56,31 @@ const successLogin = (res: OriginResponse) => {
     name: 'dashboard',
   })
 }
+
+const homeWaveAreaKey = ref(0)
+const homePageContext = ref('MR NOTICE')
+const homeWaveCount = ref(2)
+const handleWave = () => {
+  homeWaveCount.value = 1
+  homeWaveAreaKey.value += 1
+}
 </script>
 
 <template>
   <div class="home">
-    <div class="home-view">
-      <span class="home-view-context">MR NOTICE</span>
+    <div class="home-view" @click="handleWave">
+      <div class="home-view-context" :key="homeWaveAreaKey">
+        <span
+          v-for="(item, index) in homePageContext.split('')"
+          class="wave-node-animation"
+          :key="item + index"
+          :style="{
+            animation: `wave 0.5s linear ${index * 60}ms ${homeWaveCount} alternate`,
+          }"
+        >
+          {{ item }}
+        </span>
+      </div>
     </div>
     <div class="home-content">
       <a-card hoverable :style="{ width: '400px' }">
@@ -143,6 +162,11 @@ const successLogin = (res: OriginResponse) => {
       text-align: center;
       color: brown;
       font-style: italic;
+
+      .wave-node-animation {
+        display: inline-block;
+        user-select: none;
+      }
     }
   }
 
@@ -154,6 +178,20 @@ const successLogin = (res: OriginResponse) => {
     width: 70%;
     min-width: 400px;
     height: 100%;
+  }
+
+  @keyframes wave {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-30px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
   }
 }
 </style>
