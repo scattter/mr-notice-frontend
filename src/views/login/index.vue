@@ -70,16 +70,17 @@ const handleWave = () => {
   <div class="home">
     <div class="home-view" @click="handleWave">
       <div class="home-view-context" :key="homeWaveAreaKey">
-        <span
+        <div
           v-for="(item, index) in homePageContext.split('')"
           class="wave-node-animation"
           :key="item + index"
           :style="{
             animation: `wave 0.5s linear ${index * 60}ms ${homeWaveCount} alternate`,
+            minWidth: '10px',
           }"
         >
           {{ item }}
-        </span>
+        </div>
       </div>
     </div>
     <div class="home-content">
@@ -161,19 +162,11 @@ const handleWave = () => {
     min-width: 400px;
     height: 100%;
   }
-
-  @keyframes wave {
-    0% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-30px);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
 }
+</style>
+
+<style lang="scss">
+@import 'src/style/animation';
+
+@include textWave;
 </style>
