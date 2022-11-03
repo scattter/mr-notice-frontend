@@ -26,12 +26,12 @@ export const appRoutes = [
         },
       },
       {
-        path: 'pipeline',
-        name: 'pipeline',
-        component: () => import('@/views/pipeline/index.vue'),
+        path: 'mr-listen',
+        name: 'mr-listen',
+        component: () => import('@/views/mrListen/index.vue'),
         meta: {
-          locale: '流水线',
-          activeMenu: 'pipeline',
+          locale: 'MR监听',
+          activeMenu: 'mr-listen',
         },
       },
     ],
