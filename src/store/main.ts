@@ -16,7 +16,7 @@ export const useMainStore = defineStore(
       globalLoading.value = val
     }
 
-    function updateUserInfo(val: string) {
+    function updateUserInfo(val: User) {
       userInfo.value = val
     }
 

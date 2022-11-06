@@ -47,6 +47,7 @@ export default defineConfig({
         },
       ],
       eslintrc: {
+        // eslintrc-auto-import.json文件
         enabled: true,
         filepath: './.eslintrc-auto-import.json',
         globalsPropValue: true,

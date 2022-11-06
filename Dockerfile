@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16 as builder
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies
@@ -15,6 +15,6 @@ RUN yarn build
 
 FROM nginx:latest
 # 将上一步打包后的文件copy到nginx里面
-COPY --from=node:16 dist /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
 EXPOSE 80

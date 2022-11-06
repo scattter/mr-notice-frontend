@@ -3,7 +3,7 @@ module.exports = {
   // 语句的末尾不加分号
   semi: false,
   // 单行代码字符数限制
-  printWidth: 80,
+  printWidth: 100,
   // 使用单引号
   singleQuote: true,
   //仅仅当必须的时候才会加上双引号

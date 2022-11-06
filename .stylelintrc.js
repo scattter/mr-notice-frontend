@@ -13,7 +13,7 @@ module.exports = {
   // 不同格式的文件指定自定义语法
   overrides: [
     {
-      files: ['src/**/*.(less|css|vue|html)'],
+      files: ['src/**/*.(scss|css|vue|html)'],
       customSyntax: 'postcss-scss' // 解析<style lang=“scss”>下的scss样式
     },
     {
@@ -44,6 +44,7 @@ module.exports = {
         ignorePseudoClasses: ['deep']
       }
     ],
+    'string-quotes': 'single',
     // 指定样式的排序
     'order/properties-order': [
       'position',

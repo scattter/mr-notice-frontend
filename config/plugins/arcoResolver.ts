@@ -6,7 +6,9 @@ export const arcoResolver = () => {
     dirs: ['src'], // Avoid parsing src/components.  避免解析到src/components
     deep: false,
     resolvers: [
-      ArcoResolver(),
+      ArcoResolver({
+        sideEffect: true,
+      }),
     ],
   })
 }

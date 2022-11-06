@@ -56,12 +56,32 @@ const successLogin = (res: OriginResponse) => {
     name: 'dashboard',
   })
 }
+
+const homeWaveAreaKey = ref(0)
+const homePageContext = ref('MR NOTICE')
+const homeWaveCount = ref(2)
+const handleWave = () => {
+  homeWaveCount.value = 1
+  homeWaveAreaKey.value += 1
+}
 </script>
 
 <template>
   <div class="home">
-    <div class="home-view">
-      <span class="home-view-context">MR NOTICE</span>
+    <div class="home-view" @click="handleWave">
+      <div class="home-view-context" :key="homeWaveAreaKey">
+        <div
+          v-for="(item, index) in homePageContext.split('')"
+          class="wave-node-animation"
+          :key="item + index"
+          :style="{
+            animation: `wave 0.5s linear ${index * 60}ms ${homeWaveCount} alternate`,
+            minWidth: '10px',
+          }"
+        >
+          {{ item }}
+        </div>
+      </div>
     </div>
     <div class="home-content">
       <a-card hoverable :style="{ width: '400px' }">
@@ -82,29 +102,11 @@ const successLogin = (res: OriginResponse) => {
         <div class="user-info-form">
           <a-form ref="formRef" :model="form" :style="{ width: '340px' }">
             <a-space direction="vertical" size="medium">
-              <a-form-item
-                field="name"
-                label="用户名"
-                validate-trigger="input"
-                required
-              >
-                <a-input
-                  v-model="form.name"
-                  placeholder="请输入用户名..."
-                  allow-clear
-                />
+              <a-form-item field="name" label="用户名" validate-trigger="input" required>
+                <a-input v-model="form.name" placeholder="请输入用户名..." allow-clear />
               </a-form-item>
-              <a-form-item
-                field="password"
-                label="密码"
-                validate-trigger="input"
-                required
-              >
-                <a-input-password
-                  v-model="form.password"
-                  placeholder="请输入密码..."
-                  allow-clear
-                />
+              <a-form-item field="password" label="密码" validate-trigger="input" required>
+                <a-input-password v-model="form.password" placeholder="请输入密码..." allow-clear />
               </a-form-item>
               <a-form-item>
                 <a-space>
@@ -143,6 +145,11 @@ const successLogin = (res: OriginResponse) => {
       text-align: center;
       color: brown;
       font-style: italic;
+
+      .wave-node-animation {
+        display: inline-block;
+        user-select: none;
+      }
     }
   }
 
@@ -156,4 +163,10 @@ const successLogin = (res: OriginResponse) => {
     height: 100%;
   }
 }
+</style>
+
+<style lang="scss">
+@import 'src/style/animation';
+
+@include textWave;
 </style>
