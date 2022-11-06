@@ -65,7 +65,7 @@ function convertAxiosResponse<T>(axiosPromise: Promise<AxiosResponse<T>>): Promi
       .then(response => {
         resolve(response.data)
       })
-      .then(err => {
+      .catch(err => {
         reject(err)
       })
   })
