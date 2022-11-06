@@ -39,4 +39,4 @@ jobs:
           username: root
           host: ${{ secrets.REMOTE_HOST }}
           password: ${{ secrets.REMOTE_PASSWORD }}
-          script: cd /root/zk/deploy-dist && sh refresh-front.sh
+          script: ${{ secrets.REMOTE_DEPLOY_SHELL }}
