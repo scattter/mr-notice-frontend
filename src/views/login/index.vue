@@ -17,7 +17,7 @@ const userRegister = () => {
   if (form.password === '' || form.name === '') return
   updateLoadingState(true)
   register({
-    user_name: form.name,
+    name: form.name,
     password: Encrypt(form.password.trim()),
   })
     .then(res => {
@@ -35,7 +35,7 @@ const userLogin = () => {
   if (form.password === '' || form.name === '') return
   updateLoadingState(true)
   login({
-    user_name: form.name,
+    name: form.name,
     password: Encrypt(form.password.trim()),
   })
     .then(res => {
