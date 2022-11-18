@@ -2,39 +2,13 @@
   <div class="mr-listen-page">
     <a-button class="mr-listen-create" type="primary" @click="create"> 新建MR监听 </a-button>
     <a-table class="mr-listen-table" :columns="columns" :data="mrListens" />
-    <a-modal v-model:visible="state.dialogVisible" @ok="handleOk" @cancel="handleCancel">
-      <template #title> 新建 </template>
-      <div class="create-dialog-content">
-        <a-form :model="form" :style="{ width: '480px' }">
-          <a-form-item field="name" label="监听名称" validate-trigger="input" required>
-            <a-input v-model="form.name" placeholder="请输入MR监听名称" />
-            <template #extra>
-              <div>MR监听名称, 唯一标识</div>
-            </template>
-          </a-form-item>
-          <a-form-item field="address" label="仓库地址" validate-trigger="input" required>
-            <a-input v-model="form.address" placeholder="请输入MR监听仓库地址" />
-            <template #extra>
-              <div>MR监听仓库</div>
-            </template>
-          </a-form-item>
-          <a-form-item field="projectId" label="项目ID" validate-trigger="input" required>
-            <a-input v-model="form.projectId" placeholder="请输入MR监听项目id" />
-          </a-form-item>
-          <a-form-item field="branch" label="监听分支" validate-trigger="input">
-            <a-input v-model="form.branch" placeholder="请输入MR监听分支" />
-          </a-form-item>
-        </a-form>
-      </div>
-    </a-modal>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { createMrListen, queryAllMrListenInfo } from '@/api/mrListen'
-import appStore from '@/store'
+import { queryAllMrListenInfo } from '@/api/mrListen'
 import { MrListenInfo } from '@/types/mrListen'
-const { userInfo } = appStore.useMainStore
+const router = useRouter()
 
 const columns = [
   {
@@ -51,7 +25,11 @@ const columns = [
   },
   {
     title: 'MR监听仓库',
-    dataIndex: 'address',
+    dataIndex: 'repository',
+  },
+  {
+    title: 'MR监听项目',
+    dataIndex: 'projectId',
   },
   {
     title: 'MR监听分支',
@@ -59,24 +37,8 @@ const columns = [
   },
 ]
 
-const initForm = {
-  name: '',
-  owner: userInfo.user_name,
-  address: '',
-  projectId: '',
-  branch: '',
-}
-
-const form = reactive({ ...initForm })
-
-// 初始化方法
-const resetForm = () => {
-  Object.assign(form, initForm)
-}
-
 const mrListens = ref<Array<MrListenInfo>>([])
 const state = reactive({
-  dialogVisible: false,
   mrListens,
 })
 
@@ -85,7 +47,9 @@ onMounted(async () => {
 })
 
 const create = () => {
-  state.dialogVisible = true
+  router.push({
+    name: 'mr-listen-create',
+  })
 }
 
 const queryMrListenInfo = async () => {
@@ -96,22 +60,6 @@ const queryMrListenInfo = async () => {
   } catch (e) {
     console.log(e)
   }
-}
-
-const handleOk = async () => {
-  try {
-    await createMrListen(form)
-    Message.success('创建成功')
-    await queryMrListenInfo()
-  } catch (e) {
-    console.log(e)
-  }
-  handleCancel()
-  resetForm()
-}
-
-const handleCancel = () => {
-  state.dialogVisible = false
 }
 </script>
 
