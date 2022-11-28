@@ -82,7 +82,7 @@
               <span class="attr-label" :class="{ required: requiredParams.includes(item) }">
                 {{ item }}
               </span>
-              <a-input v-model="form[item]" size="large" disabled />
+              <a-input :default-value="getFormValue(item)" size="large" disabled />
             </div>
           </div>
           <div class="step-detail-operation">
@@ -100,15 +100,14 @@
 </template>
 
 <script setup lang="ts">
-import appStore from '@/store'
-
-const { userInfo } = appStore.useMainStore
 import { createMrListen } from '@/api/mrListen'
 import { queryAllProject, queryAllRepository } from '@/api/repository'
-import { NewMrListenStep } from '@/types/mrListen'
+import appStore from '@/store'
+import { NewMrListenInfo, NewMrListenStep } from '@/types/mrListen'
 import { BaseProjectInfo, RepositoryList } from '@/types/repository'
 import { OriginResponse } from '@/types/response'
 
+const { userInfo } = appStore.useMainStore
 const STEPS: NewMrListenStep[] = [
   {
     id: 0,
@@ -131,15 +130,20 @@ const repos = ref<Array<RepositoryList>>([])
 const projects = ref<Array<BaseProjectInfo>>([])
 const state = reactive({ repos, projects })
 
-const form = reactive({
+const form = reactive<NewMrListenInfo>({
   name: '',
   owner: userInfo.name,
   repository: '',
-  projectId: null,
+  projectId: '',
   branch: '',
   noticeType: '',
   noticeAddress: '',
 })
+
+// 用来处理在template里面使用ts的问题
+const getFormValue = (key: string): string => {
+  return (form[key as keyof NewMrListenInfo] || '').toString()
+}
 
 const requiredParams = ['name', 'owner', 'repository', 'projectId']
 
@@ -202,9 +206,10 @@ watch(
     .step-wrapper {
       display: inline-block;
       flex: 0.5;
+      overflow-y: auto;
       padding: 20px 0;
       margin: 0 10px;
-      height: 55vh;
+      height: 50vh;
       background-size: cover;
       background-color: gainsboro;
       border-radius: 20px;
@@ -222,7 +227,9 @@ watch(
         transition: opacity 750ms linear;
 
         .step-detail-context {
+          overflow-y: auto;
           width: 100%;
+          max-height: 85%;
 
           .context-attr {
             margin-bottom: 10px;

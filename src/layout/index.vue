@@ -27,6 +27,7 @@ import PageLayout from './page-layout.vue'
 <style lang="scss" scoped>
 // 这里是编译器的css样式与stylelint的检查冲突了 但是不影响使用
 .layout-demo :deep(.arco-layout) {
+  overflow-y: auto;
   width: 100vw;
   height: 100vh;
   background-color: #f5f6f7;

@@ -12,6 +12,7 @@ export interface MrListenInfo extends BaseMrListen {
 }
 
 export interface NewMrListenInfo extends BaseMrListen {
+  branch?: string
   noticeType: string
   noticeAddress: string
 }

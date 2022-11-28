@@ -13,7 +13,7 @@ export interface RepositoryCreate extends BaseRepository {
 }
 
 export interface BaseProjectInfo {
+  id: number | string
   name: string
-  value: number | string
   url: string
 }

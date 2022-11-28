@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // 默认不缓存路由
-const cacheList = []
+const cacheList: string[] = []
 </script>
 
 <template>

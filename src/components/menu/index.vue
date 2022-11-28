@@ -72,7 +72,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-:deep (.arco-menu-inner) {
+:deep(.arco-menu-inner) {
   .arco-menu-inline-header {
     display: flex;
     align-items: center;
