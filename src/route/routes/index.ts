@@ -1,8 +1,9 @@
+import { CustomRouteRecordRaw } from '@/types/common'
+
 const LAYOUT = () => import('@/layout/index.vue')
 const DASHBOARD = () => import('@/views/dashboard/index.vue')
 
-export const DEFAULT_PATH = 'login'
-export const appRoutes = [
+export const appRoutes: CustomRouteRecordRaw[] = [
   {
     path: '/dashboard',
     name: 'dashboard',
@@ -29,6 +30,16 @@ export const appRoutes = [
         path: 'mr-listen',
         name: 'mr-listen',
         component: () => import('@/views/mrListen/index.vue'),
+        meta: {
+          locale: 'MR监听',
+          activeMenu: 'mr-listen',
+        },
+      },
+      {
+        path: 'mr-listen-create',
+        name: 'mr-listen-create',
+        hidden: true,
+        component: () => import('@/views/mrListen/createMrListen.vue'),
         meta: {
           locale: 'MR监听',
           activeMenu: 'mr-listen',

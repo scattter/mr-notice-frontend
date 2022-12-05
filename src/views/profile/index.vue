@@ -1,4 +1,4 @@
-<script setup></script>
+<script setup lang="ts"></script>
 <template>
   <div class="py-10">
     <div class="">
@@ -98,22 +98,19 @@
               >&emsp;&emsp;&emsp;&emsp;&emsp;◾&ensp;后端开发：数据库的增改删查，配合前端获取相应数据</span
             >
             <br />
-            <span
-              >&emsp;&emsp;&emsp;&emsp;&emsp;◾&ensp;IOS APP
-              开发：页面跳转与警告窗弹出</span
-            >
+            <span>
+              &emsp;&emsp;&emsp;&emsp;&emsp;◾&ensp;IOS APP开发：页面跳转与警告窗弹出
+            </span>
             <br />
-            <span
-              >&emsp;&emsp;&emsp;&emsp;&emsp;◾&ensp;团队工作：Showcase owner,
-              Release owner, Session 分享</span
-            >
+            <span>
+              &emsp;&emsp;&emsp;&emsp;&emsp;◾&ensp;团队工作：Showcase owner, Release owner,Session 分享
+            </span>
           </div>
           <div class="experience-detail text-sm pt-1">
             <span class="text-sm font-medium">前端技术：</span>
-            <span
-              >React, Typescript, Redux, React Router, Webpack, Lodash, Antd,
-              Enzyme, Jest</span
-            >
+            <span>
+              React, Typescript, Redux, React Router, Webpack, Lodash, Antd, Enzyme, Jest
+            </span>
           </div>
           <br />
           <div class="experience-lasted mt-2 flex justify-between">

@@ -3,6 +3,7 @@ import { compile, defineComponent, h } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 
 import { appRoutes } from '@/route/routes'
+import { filteredRouter } from '@/utils/sideBar'
 // import { openWindow, regexUrl } from '@/utils/sideBar'
 
 export default defineComponent({
@@ -14,7 +15,7 @@ export default defineComponent({
 
     // 获取路由
     const routes = computed(() => {
-      return [...appRoutes]
+      return [...filteredRouter(appRoutes, 'hidden')]
     })
 
     // 点击侧边栏时正常进行跳转

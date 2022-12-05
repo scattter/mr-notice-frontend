@@ -4,6 +4,8 @@ import 'nprogress/nprogress.css'
 import NProgress from 'nprogress' // progress bar
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { filteredRouter } from '@/utils/sideBar'
+
 // import createRouteGuard from './guard'
 import { appRoutes } from './routes'
 const DEFAULT_PAGE = () => import('@/views/login/index.vue')
@@ -28,7 +30,7 @@ const router = createRouter({
         },
       ],
     },
-    ...appRoutes,
+    ...filteredRouter(appRoutes),
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
