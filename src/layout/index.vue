@@ -19,7 +19,6 @@ import PageLayout from './page-layout.vue'
           <page-layout />
         </a-layout-content>
       </a-layout>
-      <a-layout-footer>Footer</a-layout-footer>
     </a-layout>
   </div>
 </template>
@@ -51,13 +50,13 @@ import PageLayout from './page-layout.vue'
 }
 
 .layout-demo :deep(.arco-layout-sider) {
-  height: calc(100vh - 128px);
+  height: 100%;
   //background-color: aliceblue;
 }
 
 .layout-demo :deep(.arco-layout-content) {
   padding: 20px 20px 0;
-  margin: 10px 15px;
+  margin: 10px 15px 0 15px;
   background-color: white;
 }
 </style>
