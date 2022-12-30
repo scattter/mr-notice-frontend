@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 import appStore from '@/store'
+import { ResponseCode } from '@/types/common'
+import { goBackLoginPage } from '@/utils/common'
 
 const Config = {
   baseURL: '/api/v1',
@@ -31,11 +33,15 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const { code } = response.data
-    if (code === 10000) {
+    if (code === ResponseCode.success) {
       return response
     }
   },
   error => {
+    const { code } = error.response.data
+    if (code === ResponseCode.unAuthority) {
+      goBackLoginPage()
+    }
     Message.error(error?.response?.data?.message || '服务器内部错误')
     return Promise.reject(error?.response)
   }

@@ -8,3 +8,8 @@ export declare type CustomRouteRecordRaw = RouteRecordRaw & {
   hidden?: boolean
   children: TempRouteRecordRaw[]
 }
+
+export enum ResponseCode {
+  success = 10000,
+  unAuthority = 10002,
+}
