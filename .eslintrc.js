@@ -38,7 +38,7 @@ module.exports = {
     // 在此处 覆盖 或 添加 规则设置。
     // 项目导入顺序检测
     'simple-import-sort/imports': 'error',
-    'prettier/prettier': 1,
+    'prettier/prettier': 'error',
     // Vue: Recommended rules to be closed or modify
     'vue/require-default-prop': 0,
     'vue/singleline-html-element-content-newline': 0,
