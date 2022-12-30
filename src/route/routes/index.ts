@@ -13,7 +13,7 @@ export const appRoutes: CustomRouteRecordRaw[] = [
     },
     meta: {
       locale: '项目工作台',
-      icon: 'icon-apps',
+      icon: 'icon-board',
       order: 1,
     },
     children: [

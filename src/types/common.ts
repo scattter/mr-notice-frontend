@@ -13,3 +13,5 @@ export enum ResponseCode {
   success = 10000,
   unAuthority = 10002,
 }
+
+export type TableColumnFixed = 'left' | 'right'

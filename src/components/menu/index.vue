@@ -38,7 +38,9 @@ export default defineComponent({
     const renderMenu = () => {
       function render(routes: RouteRecordRaw[], nodes = []) {
         routes.forEach(route => {
-          const icon = route?.meta?.icon ? () => h(compile(`<${route?.meta?.icon} />`)) : null
+          const icon = route?.meta?.icon
+            ? () => h(compile(`<icon-font type=${route?.meta?.icon} :size="14" />`))
+            : null
           const node =
             route?.children && Array.isArray(route.children) && route.children.length !== 0 ? (
               <a-sub-menu
